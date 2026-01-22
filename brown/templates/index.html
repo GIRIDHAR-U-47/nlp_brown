@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NLP Text Preprocessing - Brown Corpus</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📝 NLP Text Preprocessing Tool</h1>
+            <p class="subtitle">Text Normalization, Cleaning, Tokenization & Analysis using Brown Corpus</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Sidebar Navigation -->
+            <nav class="sidebar">
+                <div class="nav-item active" data-tab="custom">
+                    <span class="icon">✍️</span>
+                    Custom Text
+                </div>
+                <div class="nav-item" data-tab="brown">
+                    <span class="icon">📚</span>
+                    Brown Corpus
+                </div>
+                <div class="nav-item" data-tab="documentation">
+                    <span class="icon">📖</span>
+                    Documentation
+                </div>
+            </nav>
+
+            <!-- Main Content Area -->
+            <div class="content-area">
+                
+                <!-- Custom Text Processing Tab -->
+                <div class="tab-content active" id="custom">
+                    <div class="section">
+                        <h2>Custom Text Processing</h2>
+                        
+                        <div class="input-section">
+                            <label for="textInput">Enter Text to Process:</label>
+                            <textarea id="textInput" placeholder="Enter your text here..." rows="6"></textarea>
+                            
+                            <div class="options-grid">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="stopwordRemoval" checked>
+                                    <span>Remove Stop Words</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="stemming">
+                                    <span>Apply Stemming</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="lemmatization">
+                                    <span>Apply Lemmatization</span>
+                                </label>
+                            </div>
+
+                            <button class="btn-primary" id="processBtn">Process Text</button>
+                            <button class="btn-secondary" id="clearBtn">Clear</button>
+                        </div>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div id="resultsSection" class="results-section" style="display: none;">
+                        <h3>Processing Results</h3>
+                        
+                        <div class="results-grid">
+                            <div class="result-card">
+                                <h4>📊 Statistics</h4>
+                                <div class="stats">
+                                    <div class="stat-item">
+                                        <span class="label">Total Tokens:</span>
+                                        <span class="value" id="tokenCount">0</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="label">Unique Tokens:</span>
+                                        <span class="value" id="uniqueCount">0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="result-card full-width">
+                                <h4>🔤 Normalized Text</h4>
+                                <div class="result-text" id="normalizedResult"></div>
+                            </div>
+
+                            <div class="result-card full-width">
+                                <h4>🧹 Cleaned Text</h4>
+                                <div class="result-text" id="cleanedResult"></div>
+                            </div>
+
+                            <div class="result-card full-width">
+                                <h4>🔀 Tokenized</h4>
+                                <div class="result-text tokens" id="tokenizedResult"></div>
+                            </div>
+
+                            <div class="result-card full-width">
+                                <h4>🛑 After Stop Word Removal</h4>
+                                <div class="result-text tokens" id="stopwordResult"></div>
+                            </div>
+
+                            <div class="result-card full-width">
+                                <h4>✨ Final Tokens</h4>
+                                <div class="result-text tokens" id="finalResult"></div>
+                            </div>
+
+                            <div class="result-card full-width">
+                                <h4>⚙️ Processing Type</h4>
+                                <div class="result-text" id="processingType"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Brown Corpus Tab -->
+                <div class="tab-content" id="brown">
+                    <div class="section">
+                        <h2>Brown Corpus Processing</h2>
+                        <p class="info-text">The Brown Corpus is a collection of text samples from various genres. Process sample sentences with NLP techniques.</p>
+                        
+                        <div class="input-section">
+                            <div class="options-grid">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="brownStopword" checked>
+                                    <span>Remove Stop Words</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="brownStemming">
+                                    <span>Apply Stemming</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="brownLemmatization">
+                                    <span>Apply Lemmatization</span>
+                                </label>
+                            </div>
+
+                            <button class="btn-primary" id="processBrownBtn">Process Brown Corpus</button>
+                        </div>
+
+                        <div id="brownResultsSection" class="results-section" style="display: none;">
+                            <h3>Brown Corpus Results</h3>
+                            <div id="brownResults" class="brown-results"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Documentation Tab -->
+                <div class="tab-content" id="documentation">
+                    <div class="section">
+                        <h2>📖 Documentation</h2>
+                        
+                        <div class="doc-section">
+                            <h3>What is Text Preprocessing?</h3>
+                            <p>Text preprocessing is a fundamental step in Natural Language Processing (NLP) that prepares raw text for analysis. It involves several key techniques:</p>
+
+                            <div class="doc-item">
+                                <h4>1. Text Normalization</h4>
+                                <p>Converts text to a standard format by changing all characters to lowercase, ensuring consistent processing.</p>
+                                <p><strong>Example:</strong> "HELLO World" → "hello world"</p>
+                            </div>
+
+                            <div class="doc-item">
+                                <h4>2. Text Cleaning</h4>
+                                <p>Removes unwanted characters such as URLs, emails, special characters, and extra whitespace to prepare clean text for analysis.</p>
+                                <p><strong>Example:</strong> "Visit http://example.com! #awesome" → "Visit awesome"</p>
+                            </div>
+
+                            <div class="doc-item">
+                                <h4>3. Tokenization</h4>
+                                <p>Breaks text into individual tokens (words or subwords). Word tokenization splits sentences into words.</p>
+                                <p><strong>Example:</strong> "Hello world" → ["Hello", "world"]</p>
+                            </div>
+
+                            <div class="doc-item">
+                                <h4>4. Stop Word Removal</h4>
+                                <p>Removes common words (the, is, a, etc.) that add little semantic value to text analysis.</p>
+                                <p><strong>Example:</strong> ["the", "quick", "brown", "fox"] → ["quick", "brown", "fox"]</p>
+                            </div>
+
+                            <div class="doc-item">
+                                <h4>5. Stemming</h4>
+                                <p>Reduces words to their root form by removing suffixes. Uses rule-based approach (Porter Stemmer).</p>
+                                <p><strong>Example:</strong> "running", "runs", "ran" → "run"</p>
+                            </div>
+
+                            <div class="doc-item">
+                                <h4>6. Lemmatization</h4>
+                                <p>Converts words to their dictionary form (lemma) using morphological analysis and vocabulary.</p>
+                                <p><strong>Example:</strong> "running", "runs", "ran" → "run"</p>
+                            </div>
+
+                            <div class="doc-item">
+                                <h4>Brown Corpus</h4>
+                                <p>A comprehensive corpus of about 1 million words from various English-language sources including news, fiction, academic texts, and more. It's widely used for linguistic research and NLP training.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 NLP Text Preprocessing Tool | Powered by Flask & NLTK</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
