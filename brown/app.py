@@ -1,7 +1,6 @@
-from flask import Flask, render_template, request, jsonify
-from nltk.corpus import brown
+from flask import Flask, render_template, request, jsonify
 from nltk.tokenize import word_tokenize, sent_tokenize
-from nltk.corpus import stopwords
+from nltk.corpus import stopwords , brown
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 import nltk
 import re
@@ -193,7 +192,6 @@ def process_brown_corpus():
             'results': results
         })
     except Exception as e:
-        return jsonify({'success': False, 'error': str(e)})
-
+        return jsonify({'success': False, 'error': str(e)})
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
