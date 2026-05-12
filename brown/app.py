@@ -1,21 +1,16 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify
+
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.corpus import stopwords , brown
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 import nltk
 import re
-import string
 
 # Download required NLTK data
 try:
     nltk.data.find('tokenizers/punkt')
 except LookupError:
     nltk.download('punkt')
-
-try:
-    nltk.data.find('corpora/brown')
-except LookupError:
-    nltk.download('brown')
 
 try:
     nltk.data.find('corpora/stopwords')
@@ -192,6 +187,7 @@ def process_brown_corpus():
             'results': results
         })
     except Exception as e:
-        return jsonify({'success': False, 'error': str(e)})
+        return jsonify({'success': False, 'error': str(e)})
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
